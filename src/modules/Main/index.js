@@ -1,21 +1,32 @@
+import React from 'react'
 import { connect } from 'react-redux'
+import { Redirect, Switch, Route } from 'react-router-dom'
 
-// Import View
-import Main from './Main'
+// Import Components
+import asyncComponent from '../../components/AsyncComponent'
 
-// Import Actions
+const AsyncDashboard = asyncComponent(() => import('./Dashboard'))
 
-import { push } from 'react-router-redux'
+const Main = (props) => {
+  if (props.auth.state != 'LOGGED') {
+    return <Redirect to='/' />
+  }
+
+  return (
+    <Switch path='/main'>
+      <Route path='/main/dashboard' component={ AsyncDashboard } />
+
+      <Redirect exact path='/main' to='/main/dashboard' />
+      <Redirect path='*' to='/main' />
+    </Switch>
+  )
+}
 
 // Retrieve data from store as props
-function mapStateToProps(state) {
+function mapStateToProps(store) {
   return {
+    auth: store.auth
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Main)
+export default connect(mapStateToProps)(Main)

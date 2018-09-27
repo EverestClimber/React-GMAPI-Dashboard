@@ -4,4 +4,6 @@ export default createTypes(`
   LOGIN_SUCCEEDED
   LOGIN_REQUESTED
   LOGIN_FAILED
+
+  LOGOUT_SUCCEEDED
 `)

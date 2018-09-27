@@ -1,22 +1,26 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 // Import Components
 import {
   ThreeBounce
 } from 'better-react-spinkit'
+import classNames from 'classnames'
+import { GoogleLogout } from 'react-google-login'
+import { withStyles } from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+import Badge from '@material-ui/core/Badge'
+import MenuIcon from '@material-ui/icons/Menu'
+import NotificationsIcon from '@material-ui/icons/Notifications'
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
 
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import MenuIcon from '@material-ui/icons/Menu';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import { logoutSucceeded } from '../../../../redux/actions/auth'
 
-const drawerWidth = 240;
+const drawerWidth = 240
 
 class HeaderBar extends Component {
 
@@ -24,8 +28,21 @@ class HeaderBar extends Component {
     super(props)
   }
 
+  onLogoutButton = ({ onClick }) => (
+    <IconButton color="inherit" style={{outline: 'none'}} onClick={onClick}>
+      <i className="fa fa-sign-out" aria-hidden="true"></i>
+    </IconButton>
+  )
+
+  onSuccess = (e) => {
+    this.props.logoutSucceeded()
+  }
+
+  onFailure = (e) => {
+  }  
+
   render() {
-    const { classes, isOpened, handleSideBarOpen } = this.props;
+    const { classes, isOpened, handleSideBarOpen } = this.props
     return (
       <React.Fragment>
         <AppBar
@@ -47,11 +64,11 @@ class HeaderBar extends Component {
             <Typography variant="title" color="inherit" noWrap className={classes.title}>
               Dashboard
             </Typography>
-            <IconButton color="inherit" style={{outline: 'none'}}>
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            <GoogleLogout
+              onLogoutSuccess={this.onSuccess}
+              onFailure={this.onFailure}
+              render={this.onLogoutButton}
+            />
           </Toolbar>
         </AppBar>
       </React.Fragment>
@@ -88,11 +105,25 @@ const styles = theme => ({
   title: {
     flexGrow: 1,
   },
-});
+})
 
 
 HeaderBar.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(HeaderBar)
+// Retrieve data from store as props
+function mapStateToProps(store) {
+  return {
+    auth: store.auth
+  }
+}
+
+// Retrieve dispatch and callbacks from store as props
+const mapDispatchToProps = dispatch => {
+  return {
+    logoutSucceeded: () => dispatch(logoutSucceeded()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(HeaderBar))

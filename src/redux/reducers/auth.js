@@ -20,11 +20,17 @@ export const loginRequested = (state = initialState) => {
 export const loginFailed = (state = initialState) => {
   return { state: 'NOT_LOGGED' }
 }
+
+export const logoutSucceeded = (state = initialState) => {
+  return { state: 'NOT_LOGGED' }
+}
+
 // map action types to reducer functions
 export const handlers = {
   [Types.LOGIN_SUCCEEDED]: loginSucceeded,
   [Types.LOGIN_REQUESTED]: loginRequested,
   [Types.LOGIN_FAILED]: loginFailed,
+  [Types.LOGOUT_SUCCEEDED]: logoutSucceeded,
 }
 
 /* Selectors */

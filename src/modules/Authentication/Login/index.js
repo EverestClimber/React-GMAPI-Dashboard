@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { GoogleLogin, GoogleLogout } from 'react-google-login'
+import { GoogleLogin } from 'react-google-login'
 
 // Import styles
 import '../styles/styles.css'
