@@ -6,8 +6,5 @@ export const loginSucceeded = (token) =>
 export const loginRequested = () => 
   ({ type: Types.LOGIN_REQUESTED })
 
-export const loginFailed = () => 
-  ({ type: Types.LOGIN_FAILED })
-
 export const logoutSucceeded = () => 
   ({ type: Types.LOGOUT_SUCCEEDED })

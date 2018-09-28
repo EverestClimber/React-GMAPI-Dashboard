@@ -3,7 +3,10 @@ import { createTypes } from 'reduxsauce'
 export default createTypes(`
   LOGIN_SUCCEEDED
   LOGIN_REQUESTED
-  LOGIN_FAILED
-
   LOGOUT_SUCCEEDED
+
+  RESET_SEARCH
+  SEARCH_FETCH_REQUESTED
+  SEARCH_FETCH_SUCCEEDED
+  SEARCH_FETCH_FAILED
 `)

@@ -28,18 +28,9 @@ class HeaderBar extends Component {
     super(props)
   }
 
-  onLogoutButton = ({ onClick }) => (
-    <IconButton color="inherit" style={{outline: 'none'}} onClick={onClick}>
-      <i className="fa fa-sign-out" aria-hidden="true"></i>
-    </IconButton>
-  )
-
-  onSuccess = (e) => {
+  onLogout = (e) => {
     this.props.logoutSucceeded()
   }
-
-  onFailure = (e) => {
-  }  
 
   render() {
     const { classes, isOpened, handleSideBarOpen } = this.props
@@ -64,11 +55,14 @@ class HeaderBar extends Component {
             <Typography variant="title" color="inherit" noWrap className={classes.title}>
               Dashboard
             </Typography>
-            <GoogleLogout
+            <IconButton color="inherit" style={{outline: 'none'}} onClick={this.onLogout}>
+              <i className="fa fa-sign-out" aria-hidden="true"></i>
+            </IconButton>
+            {/* <GoogleLogout
               onLogoutSuccess={this.onSuccess}
               onFailure={this.onFailure}
               render={this.onLogoutButton}
-            />
+            /> */}
           </Toolbar>
         </AppBar>
       </React.Fragment>

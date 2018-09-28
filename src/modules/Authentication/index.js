@@ -9,13 +9,12 @@ const AsyncLogin = asyncComponent(() => import('./Login'))
 
 const Authentication = (props) => {
   if (props.auth.state === 'LOGGED') {
-    return <Redirect to='/main' />
+    return <Redirect to='/main/dashboard' />
   }
 
   return (
     <Switch path='/auth'>
       <Route path='/auth/login' component={ AsyncLogin } />
-
       <Redirect exact path='/auth' to='/auth/login' />
       <Redirect path='*' to='/auth' />
     </Switch>

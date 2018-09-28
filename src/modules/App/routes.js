@@ -13,7 +13,7 @@ const routes = (props) => {
     <Switch path='/'>
       <Route path='/main' component={ Main } />
       <Route path='/auth' component={ Authentication } />
-      <Redirect exact path='/' to='/auth' />
+      <Redirect exact path='/' to='/main' />
       <Redirect path='*' to='/' />
     </Switch>
   )

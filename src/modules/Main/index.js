@@ -6,16 +6,17 @@ import { Redirect, Switch, Route } from 'react-router-dom'
 import asyncComponent from '../../components/AsyncComponent'
 
 const AsyncDashboard = asyncComponent(() => import('./Dashboard'))
+const AsyncDashboard1 = asyncComponent(() => import('./Dashboard1'))
 
 const Main = (props) => {
   if (props.auth.state != 'LOGGED') {
-    return <Redirect to='/' />
+    return <Redirect to='/auth' />
   }
 
   return (
     <Switch path='/main'>
-      <Route path='/main/dashboard' component={ AsyncDashboard } />
-
+      <Route exact path='/main/dashboard' component={ AsyncDashboard } />
+      <Route exact path='/main/dashboard1' component={ AsyncDashboard1 } />
       <Redirect exact path='/main' to='/main/dashboard' />
       <Redirect path='*' to='/main' />
     </Switch>

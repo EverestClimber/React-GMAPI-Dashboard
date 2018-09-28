@@ -2,6 +2,7 @@ import { put, call, take, takeLatest } from 'redux-saga/effects'
 import Types from '../actions/types'
 
 import * as Actions from '../actions/auth'
+import * as Actions_Search from '../actions/search'
 import * as Api from '../../api/auth'
 
 import { GOOGLE_AUTH_CLIENT_ID } from '../../config'
@@ -25,9 +26,21 @@ function* loginRequested() {
       const res = yield call(Api.checkAuthToken, token)
       if(res.aud == GOOGLE_AUTH_CLIENT_ID)
         yield put(Actions.loginSucceeded(token))
+      else
+        yield put(Actions.logoutSucceeded())
     }
     else
-      yield put(Actions.loginFailed())
+      yield put(Actions.logoutSucceeded())
+  } catch (e) {
+    yield put(Actions.logoutSucceeded())
+  }
+}
+
+function* logoutSucceeded() {
+  try {
+    localStorage.removeItem("token")
+    localStorage.removeItem('firstNotify')
+    yield put(Actions_Search.resetSearch())
   } catch (e) {
   }
 }
@@ -38,4 +51,5 @@ function* loginRequested() {
 export function* authSaga() {
   yield takeLatest(Types.LOGIN_SUCCEEDED, loginSucceeded)
   yield takeLatest(Types.LOGIN_REQUESTED, loginRequested)
+  yield takeLatest(Types.LOGOUT_SUCCEEDED, logoutSucceeded)
 }

@@ -4,17 +4,27 @@ import { connect } from 'react-redux'
 import Dashboard from './Dashboard'
 
 // Import Actions
+import { 
+  resetSearch,
+  searchFetchRequested,
+  searchFetchSucceeded,
+  searchFetchFailed,
+} from '../../../redux/actions/search'
 
 import { push } from 'react-router-redux'
 
 // Retrieve data from store as props
-function mapStateToProps(state) {
+function mapStateToProps(store) {
   return {
+    auth: store.auth,
+    search: store.search
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    restSearch: () => dispatch(resetSearch()),
+    searchFetchRequested: (cpr, keys) => dispatch(searchFetchRequested(cpr, keys)),
   }
 }
 
