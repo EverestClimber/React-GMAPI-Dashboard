@@ -23,8 +23,8 @@ function mapStateToProps(store) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    restSearch: () => dispatch(resetSearch()),
-    searchFetchRequested: (cpr, keys) => dispatch(searchFetchRequested(cpr, keys)),
+    resetSearch: () => dispatch(resetSearch()),
+    searchFetchRequested: (req) => dispatch(searchFetchRequested(req)),
   }
 }
 

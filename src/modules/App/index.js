@@ -52,8 +52,7 @@ class App extends React.Component {
   render() {
     const { classes } = this.props
     return (
-      <React.Fragment>
-        <SnackbarProvider
+      <SnackbarProvider
           maxSnack={3}
           transitionDuration={{ exit: 10, enter: 40 }}
           autoHideDuration={2000}
@@ -62,6 +61,7 @@ class App extends React.Component {
             horizontal: 'right',
         }}
         >
+        <React.Fragment>
           <CssBaseline />
           <div className={classes.root}>
             {this.props.auth.state == "LOGGED" &&
@@ -76,8 +76,8 @@ class App extends React.Component {
               {/* { !this.state.checked || this.props.global.loading && <CircularProgress className={classes.loading} size={100} /> } */}
             </main>
           </div>
-        </SnackbarProvider>
-      </React.Fragment>
+        </React.Fragment>
+      </SnackbarProvider>
     )
   }
 }

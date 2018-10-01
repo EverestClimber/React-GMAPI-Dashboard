@@ -6,8 +6,6 @@ import Types from '../actions/types'
 const initialState = {
   result: [],
   state: 'RESETED_SEARCH',
-  keys: [],
-  cpr: ''
 }
 
 export const resetSearch = (state = initialState) => {
